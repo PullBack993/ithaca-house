@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thalassa House · Ithaca — Sea-view holiday home in the Ionian</title>
+<meta name="description" content="A newly renovated two-bedroom holiday home on the island of Ithaca, Greece. Sleeps four, with a full modern kitchen and a terrace overlooking the Ionian Sea." />
+
+<!-- Fonts: editorial serif + geometric grotesque (loads online; falls back to system fonts offline) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --canvas:#FBFAF7;      /* warm bone */
+    --surface:#FFFFFF;
+    --ink:#1C1B19;         /* off-black */
+    --ink-soft:#57544E;    /* muted body */
+    --ink-faint:#8A867D;   /* captions / meta */
+    --line:#E7E4DD;        /* structural border */
+    --line-strong:#D8D4CB;
+    --sea:#2F6E8F;         /* restrained Ionian blue accent */
+    --sea-pale:#E7F1F6;
+    --sea-ink:#1F5772;
+    --sand:#F2EDE3;
+    --max:1180px;
+    --r:12px;
+    --ease:cubic-bezier(0.16,1,0.3,1);
+    --serif:'Newsreader','Iowan Old Style','Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif;
+    --sans:'Manrope','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--canvas);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-0.02em;line-height:1.08;margin:0;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;}
+  .eyebrow{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.16em;
+           text-transform:uppercase;color:var(--sea-ink);margin:0 0 18px;}
+  .lead{font-size:19px;color:var(--ink-soft);max-width:60ch;}
+
+  /* ---------- Nav ---------- */
+  header.nav{position:sticky;top:0;z-index:50;
+    background:rgba(251,250,247,0.82);backdrop-filter:blur(12px);
+    border-bottom:1px solid transparent;transition:border-color .3s,background .3s;}
+  header.nav.scrolled{border-color:var(--line);}
+  .nav-inner{max-width:var(--max);margin:0 auto;padding:16px 28px;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .brand{display:flex;align-items:baseline;gap:10px;}
+  .brand .mark{font-family:var(--serif);font-size:21px;letter-spacing:-0.02em;}
+  .brand .loc{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-faint);}
+  .nav-links{display:flex;gap:30px;align-items:center;}
+  .nav-links a{font-size:14px;color:var(--ink-soft);transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);
+    font-size:14px;font-weight:600;padding:11px 20px;border-radius:6px;cursor:pointer;
+    border:1px solid transparent;transition:transform .15s var(--ease),background .2s,color .2s,border-color .2s;}
+  .btn:active{transform:scale(.98);}
+  .btn-dark{background:var(--ink);color:#fff;}
+  .btn-dark:hover{background:#000;}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-light{background:#fff;color:var(--ink);}
+  @media(max-width:760px){.nav-links a:not(.btn){display:none;}}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;
+    color:#fff;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 45%;filter:saturate(.98);}
+  .hero-bg::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(20,18,15,.28) 0%,rgba(20,18,15,.05) 38%,rgba(20,18,15,.62) 100%);}
+  .hero-inner{position:relative;z-index:2;width:100%;max-width:var(--max);
+    margin:0 auto;padding:0 28px 68px;}
+  .hero .eyebrow{color:rgba(255,255,255,.86);}
+  .hero h1{font-size:clamp(2.9rem,7vw,5.4rem);max-width:15ch;
+    text-shadow:0 1px 30px rgba(0,0,0,.25);}
+  .hero p{margin:22px 0 30px;font-size:clamp(1.05rem,2vw,1.25rem);
+    max-width:46ch;color:rgba(255,255,255,.92);}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+  .scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    z-index:3;color:rgba(255,255,255,.7);font-size:11px;letter-spacing:0.2em;
+    text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .scroll-cue span{width:1px;height:34px;background:rgba(255,255,255,.5);animation:cue 2.4s var(--ease) infinite;}
+  @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.4;transform-origin:top;}50%{transform:scaleY(1);opacity:1;}}
+
+  /* ---------- Section rhythm ---------- */
+  section{padding:clamp(72px,11vw,132px) 0;}
+  .section-head{max-width:66ch;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(2rem,4.4vw,3.1rem);}
+  .section-head p{margin-top:20px;}
+
+  /* ---------- Facts strip ---------- */
+  .facts{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(4,1fr);}
+  .facts .cell{padding:34px 26px;border-left:1px solid var(--line);}
+  .facts .cell:first-child{border-left:none;}
+  .facts .k{font-family:var(--serif);font-size:2.2rem;line-height:1;}
+  .facts .v{margin-top:10px;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);}
+  @media(max-width:680px){.facts{grid-template-columns:repeat(2,1fr);}
+    .facts .cell:nth-child(3){border-left:none;}
+    .facts .cell:nth-child(3),.facts .cell:nth-child(4){border-top:1px solid var(--line);}}
+
+  /* ---------- Intro split ---------- */
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;}
+  .split .media{border-radius:var(--r);overflow:hidden;aspect-ratio:4/5;}
+  .split .media img{width:100%;height:100%;object-fit:cover;filter:saturate(.97);
+    transition:transform 1.2s var(--ease);}
+  .split .media:hover img{transform:scale(1.04);}
+  .split.rev{grid-template-columns:.95fr 1.05fr;}
+  .split.rev .txt{order:-1;}
+  @media(max-width:860px){.split,.split.rev{grid-template-columns:1fr;gap:34px;}
+    .split.rev .txt{order:0;} .split .media{aspect-ratio:16/11;}}
+
+  /* ---------- Bento gallery ---------- */
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:14px;}
+  .bento figure{margin:0;overflow:hidden;border-radius:var(--r);position:relative;background:var(--sand);}
+  .bento img{width:100%;height:100%;object-fit:cover;filter:saturate(.96);
+    transition:transform 1s var(--ease);}
+  .bento figure:hover img{transform:scale(1.05);}
+  .bento .cap{position:absolute;left:14px;bottom:12px;color:#fff;font-size:12px;
+    letter-spacing:.05em;text-transform:uppercase;z-index:2;
+    text-shadow:0 1px 12px rgba(0,0,0,.5);opacity:0;transition:opacity .3s;}
+  .bento figure:hover .cap{opacity:1;}
+  .bento .a{grid-column:span 2;grid-row:span 2;}
+  .bento .b{grid-column:span 2;grid-row:span 1;}
+  .bento .c{grid-column:span 1;grid-row:span 1;}
+  .bento .d{grid-column:span 2;grid-row:span 1;}
+  @media(max-width:760px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}
+    .bento .a{grid-column:span 2;grid-row:span 2;}
+    .bento .b,.bento .d{grid-column:span 2;} .bento .c{grid-column:span 1;}}
+
+  /* ---------- Rooms ---------- */
+  .rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .room{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    overflow:hidden;transition:box-shadow .25s var(--ease),transform .25s var(--ease);}
+  .room:hover{box-shadow:0 8px 30px rgba(28,27,25,.06);transform:translateY(-3px);}
+  .room .ph{aspect-ratio:3/2;overflow:hidden;}
+  .room .ph img{width:100%;height:100%;object-fit:cover;filter:saturate(.97);
+    transition:transform 1s var(--ease);}
+  .room:hover .ph img{transform:scale(1.05);}
+  .room .body{padding:28px 30px 32px;}
+  .room h3{font-size:1.5rem;margin-bottom:10px;}
+  .room p{color:var(--ink-soft);font-size:15.5px;margin:0 0 18px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    padding:5px 11px;border-radius:9999px;background:var(--sea-pale);color:var(--sea-ink);}
+  @media(max-width:900px){.rooms{grid-template-columns:1fr;max-width:520px;margin:0 auto;}}
+
+  /* ---------- Feature (terrace) ---------- */
+  .feature{position:relative;border-radius:calc(var(--r) + 4px);overflow:hidden;
+    min-height:60vh;display:flex;align-items:flex-end;color:#fff;}
+  .feature img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}
+  .feature::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55));}
+  .feature .fc{position:relative;z-index:2;padding:clamp(30px,5vw,56px);max-width:58ch;}
+  .feature h2{font-size:clamp(1.9rem,4vw,2.8rem);}
+  .feature p{color:rgba(255,255,255,.9);margin-top:16px;}
+
+  /* ---------- Amenities ---------- */
+  .amen{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--line);
+    border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
+  .amen .it{background:var(--canvas);padding:30px 26px;display:flex;flex-direction:column;gap:14px;}
+  .amen svg{width:26px;height:26px;color:var(--sea-ink);stroke-width:1.6;}
+  .amen .lb{font-size:15px;font-weight:600;}
+  .amen .sb{font-size:13px;color:var(--ink-faint);margin-top:-6px;}
+  @media(max-width:860px){.amen{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- Location list ---------- */
+  .near{display:grid;grid-template-columns:1fr 1fr;gap:0 64px;}
+  .near .row{display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+    padding:17px 0;border-bottom:1px solid var(--line);}
+  .near .row .nm{font-size:16px;}
+  .near .row .ds{font-size:13px;color:var(--ink-faint);letter-spacing:.03em;white-space:nowrap;}
+  @media(max-width:680px){.near{grid-template-columns:1fr;gap:0;}}
+
+  /* ---------- Booking ---------- */
+  .book{background:var(--ink);color:#fff;border-radius:calc(var(--r) + 6px);
+    padding:clamp(40px,6vw,72px);display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .book h2{color:#fff;font-size:clamp(2rem,4vw,2.8rem);}
+  .book p{color:rgba(255,255,255,.72);margin-top:18px;}
+  .form{display:grid;gap:14px;}
+  .form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .form label{font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+    color:rgba(255,255,255,.6);display:block;margin-bottom:7px;}
+  .form input,.form textarea{width:100%;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.16);border-radius:6px;color:#fff;
+    font-family:var(--sans);font-size:15px;padding:12px 14px;transition:border-color .2s;}
+  .form input:focus,.form textarea:focus{outline:none;border-color:rgba(255,255,255,.55);}
+  .form textarea{resize:vertical;min-height:84px;}
+  .form .btn-light{margin-top:6px;justify-content:center;}
+  @media(max-width:860px){.book{grid-template-columns:1fr;gap:34px;}}
+
+  /* ---------- Footer ---------- */
+  footer{padding:64px 0 48px;border-top:1px solid var(--line);}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start;}
+  .foot .cr{font-size:13px;color:var(--ink-faint);max-width:42ch;}
+  .foot a{color:var(--ink-soft);}
+  .foot-links{display:flex;gap:26px;font-size:14px;}
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(14px);}
+  .reveal.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease);}
+  .stagger>*{opacity:0;transform:translateY(14px);}
+  .stagger.in>*{opacity:1;transform:none;
+    transition:opacity .6s var(--ease),transform .6s var(--ease);
+    transition-delay:calc(var(--i,0) * 80ms);}
+  @media(prefers-reduced-motion:reduce){
+    .reveal,.stagger>*{opacity:1!important;transform:none!important;}
+    .scroll-cue span{animation:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark">Thalassa House</span>
+      <span class="loc">Ithaca · Greece</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#house">The house</a>
+      <a href="#rooms">Rooms</a>
+      <a href="#location">Ithaca</a>
+      <a href="#book" class="btn btn-dark">Check dates</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-bg"><img src="images/hero.jpg" alt="Sunset over the Ionian Sea seen from Ithaca" /></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Ionian Islands · Greece</p>
+    <h1>A quiet house above the Ionian Sea</h1>
+    <p>A newly renovated two-bedroom home on Ithaca, where the day ends with the sun sinking into the water and dinner on the terrace.</p>
+    <div class="hero-cta">
+      <a href="#book" class="btn btn-light">Check availability</a>
+      <a href="#house" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.5)">See the house</a>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll<span></span></div>
+</section>
+
+<!-- ============ FACTS ============ -->
+<div class="facts wrap" style="max-width:var(--max);margin-inline:auto;">
+  <div class="cell"><div class="k">4</div><div class="v">Guests</div></div>
+  <div class="cell"><div class="k">2</div><div class="v">Bedrooms</div></div>
+  <div class="cell"><div class="k">1</div><div class="v">Bathroom</div></div>
+  <div class="cell"><div class="k">∞</div><div class="v">Sea views</div></div>
+</div>
+
+<!-- ============ INTRO / OVERVIEW ============ -->
+<section id="house">
+  <div class="wrap split">
+    <div class="txt reveal">
+      <p class="eyebrow">The house</p>
+      <h2>Light, calm and built around the view</h2>
+      <p class="lead">Set on a green hillside on Ithaca, the house opens onto a wide terrace facing west across the Ionian. Inside, high vaulted ceilings, a soft powder-blue kitchen and cool stone floors keep it fresh through the Greek summer — a simple, comfortable base for a slow island holiday.</p>
+      <p style="color:var(--ink-soft);margin-top:6px">Recently finished throughout, it sleeps four across two bedrooms, with a fully equipped kitchen, fast Wi-Fi and everything you need for stays from a long weekend to a full season.</p>
+    </div>
+    <div class="media reveal"><img src="images/terrace.jpg" alt="The powder-blue kitchen under the vaulted ceiling at dusk" /></div>
+  </div>
+</section>
+
+<!-- ============ BENTO GALLERY ============ -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">A look around</p>
+      <h2>Inside and out</h2>
+    </div>
+    <div class="bento reveal">
+      <figure class="a"><img src="images/kitchen.jpg" alt="Kitchen with powder-blue cabinets and marble worktops" /><figcaption class="cap">The kitchen</figcaption></figure>
+      <figure class="b"><img src="images/cove.jpg" alt="Turquoise cove framed by green headlands near Ithaca" /><figcaption class="cap">Nearby coves</figcaption></figure>
+      <figure class="c"><img src="images/bedroom-1.jpg" alt="The double bedroom with fitted wardrobe" /><figcaption class="cap">Master bedroom</figcaption></figure>
+      <figure class="c"><img src="images/bedroom-2.jpg" alt="Second bedroom with two single beds" /><figcaption class="cap">Second bedroom</figcaption></figure>
+      <figure class="d"><img src="images/village.jpg" alt="Colourful Ionian fishing village by the water" /><figcaption class="cap">Ithaca villages</figcaption></figure>
+      <figure class="c"><img src="images/olives.jpg" alt="Olive groves on the hillside" /><figcaption class="cap">Olive country</figcaption></figure>
+      <figure class="c"><img src="images/coffee.jpg" alt="Morning coffee" /><figcaption class="cap">Slow mornings</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROOMS ============ -->
+<section id="rooms" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Rooms &amp; spaces</p>
+      <h2>Room by room</h2>
+      <p>Two bedrooms, a bright open-plan living and kitchen, and a terrace that does most of the entertaining.</p>
+    </div>
+    <div class="rooms stagger">
+      <article class="room" style="--i:0">
+        <div class="ph"><img src="images/kitchen.jpg" alt="Open-plan kitchen with blue cabinets" /></div>
+        <div class="body">
+          <h3>Living &amp; kitchen</h3>
+          <p>An open-plan space under a vaulted white ceiling, with woven pendant lights, marble worktops and a full kitchen — oven, induction hob, fridge and a proper espresso machine for the mornings.</p>
+          <div class="tags"><span class="tag">Espresso machine</span><span class="tag">Full kitchen</span><span class="tag">Dining for 4</span></div>
+        </div>
+      </article>
+      <article class="room" style="--i:1">
+        <div class="ph"><img src="images/bedroom-1.jpg" alt="Double bedroom" /></div>
+        <div class="body">
+          <h3>Master bedroom</h3>
+          <p>A calm double room with crisp linen, fitted wardrobes and plenty of natural light. Everything pared back so the view and the quiet do the work.</p>
+          <div class="tags"><span class="tag">Double bed</span><span class="tag">Wardrobe</span><span class="tag">A/C</span></div>
+        </div>
+      </article>
+      <article class="room" style="--i:2">
+        <div class="ph"><img src="images/bedroom-2.jpg" alt="Twin bedroom with two single beds" /></div>
+        <div class="body">
+          <h3>Second bedroom</h3>
+          <p>Two single beds — ideal for children, friends or a flexible party of four. Fresh, simple and cool, with the same soft palette as the rest of the house.</p>
+          <div class="tags"><span class="tag">Two singles</span><span class="tag">A/C</span><span class="tag">Linen provided</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE: TERRACE ============ -->
+<section>
+  <div class="wrap">
+    <div class="feature reveal">
+      <img src="images/sunset-2.jpg" alt="The sun setting over the Ionian Sea" />
+      <div class="fc">
+        <p class="eyebrow" style="color:rgba(255,255,255,.85)">The terrace</p>
+        <h2>Dinner, and then the sunset</h2>
+        <p>The terrace faces due west, so most evenings end the same way: a glass of something cold, the mountains of the mainland turning gold, and the sea going quiet. It is, honestly, the reason to book.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AMENITIES ============ -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">What's included</p>
+      <h2>Everything you'd want, nothing you wouldn't</h2>
+    </div>
+    <div class="amen reveal">
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0 1 14 0"/><path d="M8.5 15.5a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1"/></svg><div class="lb">Fast Wi-Fi</div><div class="sb">Works throughout</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="9" rx="2"/><path d="M7 18h2M15 18h2M6 9h.01M10 9h4"/></svg><div class="lb">Air conditioning</div><div class="sb">Every room</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h10v7a5 5 0 0 1-10 0Z"/><path d="M14 5h3a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-3"/><path d="M9 15v6"/></svg><div class="lb">Espresso machine</div><div class="sb">Full kitchen</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20c2-6 3-10 9-10s7 4 9 10Z"/><path d="M12 10V4"/><path d="M9 4h6"/></svg><div class="lb">Sea-view terrace</div><div class="sb">Facing the sunset</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v2M12 18v2"/></svg><div class="lb">Washing machine</div><div class="sb">In the house</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11"/><path d="M5 11h14v5H5z"/><circle cx="7.5" cy="18" r="1.5"/><circle cx="16.5" cy="18" r="1.5"/></svg><div class="lb">Free parking</div><div class="sb">On site</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg><div class="lb">Self check-in</div><div class="sb">Flexible arrival</div></div>
+      <div class="it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20c3-2 5-2 8 0s5 2 8 0"/><path d="M4 14c3-2 5-2 8 0s5 2 8 0"/><path d="M12 3v5"/></svg><div class="lb">Fresh linen</div><div class="sb">Beds &amp; towels</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION ============ -->
+<section id="location" style="background:var(--sand);">
+  <div class="wrap split rev">
+    <div class="media reveal"><img src="images/panorama.jpg" alt="Aerial view of an Ionian coastal town" /></div>
+    <div class="txt reveal">
+      <p class="eyebrow">The island</p>
+      <h2>Ithaca — the greener side of Greece</h2>
+      <p class="lead">Odysseus's rugged little island in the Ionian is all pine-covered hills, hidden pebble coves and working fishing harbours. It is quieter and greener than the Cyclades — a place for swimming, slow lunches and boat days rather than crowds.</p>
+      <p style="color:var(--ink-soft)">The main town of Vathi wraps around one of the Mediterranean's deepest natural harbours, while Kioni and Frikes to the north are postcard villages built for long tavern dinners by the water.</p>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:64px;">
+    <div class="near reveal">
+      <div>
+        <div class="row"><span class="nm">Vathi town &amp; harbour</span><span class="ds">10 min drive</span></div>
+        <div class="row"><span class="nm">Filiatro &amp; Gidaki beaches</span><span class="ds">15 min</span></div>
+        <div class="row"><span class="nm">Kioni fishing village</span><span class="ds">25 min</span></div>
+      </div>
+      <div>
+        <div class="row"><span class="nm">Nearest taverna</span><span class="ds">5 min</span></div>
+        <div class="row"><span class="nm">Local shop &amp; bakery</span><span class="ds">8 min</span></div>
+        <div class="row"><span class="nm">Ferry port (mainland &amp; Kefalonia)</span><span class="ds">15 min</span></div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-faint);margin-top:18px;">Distances are approximate — a car is recommended for exploring the island.</p>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="book">
+  <div class="wrap">
+    <div class="book reveal">
+      <div>
+        <p class="eyebrow" style="color:var(--sea-pale)">Reservations</p>
+        <h2>Come and stay</h2>
+        <p>Tell us your dates and how many of you are travelling, and we'll get straight back to you with availability and rates. Direct enquiries welcome for weekly and monthly stays.</p>
+        <p style="margin-top:22px;font-size:14px;color:rgba(255,255,255,.6)">
+          Or email us directly:<br/>
+          <a href="mailto:turgay.ismailov@restplatzboerse.at?subject=Ithaca%20House%20enquiry" style="color:#fff;border-bottom:1px solid rgba(255,255,255,.4);">turgay.ismailov@restplatzboerse.at</a>
+        </p>
+      </div>
+      <form class="form" id="enquiry" onsubmit="return sendEnquiry(event)">
+        <div>
+          <label for="nm">Your name</label>
+          <input id="nm" name="name" type="text" required placeholder="Full name" />
+        </div>
+        <div class="two">
+          <div><label for="ci">Arrival</label><input id="ci" name="checkin" type="date" required /></div>
+          <div><label for="co">Departure</label><input id="co" name="checkout" type="date" required /></div>
+        </div>
+        <div class="two">
+          <div><label for="gs">Guests</label><input id="gs" name="guests" type="number" min="1" max="4" value="2" /></div>
+          <div><label for="em">Email</label><input id="em" name="email" type="email" required placeholder="you@email.com" /></div>
+        </div>
+        <div>
+          <label for="ms">Message</label>
+          <textarea id="ms" name="message" placeholder="Anything we should know?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-light">Send enquiry</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#top" style="margin-bottom:14px;">
+        <span class="mark" style="font-size:19px;">Thalassa House</span>
+      </a>
+      <p class="cr">A privately owned holiday home on Ithaca, Ionian Islands, Greece.<br/>© <span id="yr"></span> Thalassa House. All rights reserved.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#house">The house</a>
+      <a href="#rooms">Rooms</a>
+      <a href="#location">Ithaca</a>
+      <a href="#book">Book</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav border on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Scroll reveal (IntersectionObserver)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+
+  // Enquiry form -> opens email client with a prefilled message (no backend required)
+  function sendEnquiry(ev){
+    ev.preventDefault();
+    const f = ev.target;
+    const g = id => encodeURIComponent(f.querySelector('#'+id).value || '');
+    const body =
+      'Name: ' + g('nm') + '%0D%0A' +
+      'Arrival: ' + g('ci') + '%0D%0A' +
+      'Departure: ' + g('co') + '%0D%0A' +
+      'Guests: ' + g('gs') + '%0D%0A' +
+      'Email: ' + g('em') + '%0D%0A%0D%0A' +
+      'Message:%0D%0A' + g('ms');
+    window.location.href =
+      'mailto:turgay.ismailov@restplatzboerse.at?subject=' +
+      encodeURIComponent('Ithaca House enquiry') + '&body=' + body;
+    return false;
+  }
+</script>
+</body>
+</html>
