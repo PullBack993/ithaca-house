@@ -69,7 +69,30 @@
   .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong);}
   .btn-ghost:hover{border-color:var(--ink);}
   .btn-light{background:#fff;color:var(--ink);}
-  @media(max-width:760px){.nav-links a:not(.btn){display:none;}}
+  .nav-toggle{display:none;}
+  .mobile-menu{display:none;}
+  @media(max-width:760px){
+    .nav-inner{padding:14px 20px;}
+    .brand .loc{display:none;}
+    .brand .mark{font-size:19px;}
+    .nav-links{display:none;}
+    .nav-toggle{display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:5px;width:44px;height:44px;margin:-6px -8px -6px 0;padding:0;background:transparent;
+      border:none;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+    .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;
+      transition:transform .3s var(--ease),opacity .2s;}
+    .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+    .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-menu{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+      background:rgba(251,250,247,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+      padding:6px 20px 18px;opacity:0;transform:translateY(-8px);pointer-events:none;
+      transition:opacity .25s var(--ease),transform .25s var(--ease);}
+    .mobile-menu.open{opacity:1;transform:none;pointer-events:auto;}
+    .mobile-menu a{font-size:16px;color:var(--ink);padding:15px 2px;border-bottom:1px solid var(--line);}
+    .mobile-menu a.btn{margin-top:14px;padding:14px 20px;border-bottom:none;justify-content:center;}
+    .mobile-menu .btn-dark{color:#fff;}
+  }
 
   /* ---------- Hero ---------- */
   .hero{position:relative;min-height:92vh;display:flex;align-items:flex-end;
@@ -234,6 +257,15 @@
       <a href="#location">Ithaca</a>
       <a href="#book" class="btn btn-dark">Check dates</a>
     </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#house">The house</a>
+    <a href="#rooms">Rooms</a>
+    <a href="#location">Ithaca</a>
+    <a href="#book" class="btn btn-dark">Check dates</a>
   </div>
 </header>
 
@@ -453,6 +485,21 @@
 
   // Year
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (navToggle && mobileMenu) {
+    const setMenu = (open) => {
+      mobileMenu.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open);
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    navToggle.addEventListener('click', () => setMenu(!mobileMenu.classList.contains('open')));
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    // Close if resized up to desktop
+    window.addEventListener('resize', () => { if (window.innerWidth > 760) setMenu(false); }, {passive:true});
+  }
 
   // Scroll reveal (IntersectionObserver)
   const io = new IntersectionObserver((entries) => {
